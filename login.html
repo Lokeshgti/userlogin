@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Login</title>
+	<!-- <link rel="stylesheet" type="text/css" href="style.css"> -->
+    <style>
+        h1 {
+	text-align: center;
+}
+
+form {
+	max-width: 400px;
+	margin: 0 auto;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+label {
+	display: block;
+	margin: 10px 0;
+}
+
+input[type="text"], input[type="password"] {
+	padding: 10px;
+	margin: 10px 0;
+	border: none;
+	border-radius: 5px;
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
+input[type="submit"] {
+	padding: 10px;
+	background-color: #007bff;
+	color: #fff;
+	border: none;
+	border-radius: 5px;
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+	cursor: pointer;
+}
+
+    </style>
+</head>
+<body>
+	<h1>Login</h1>
+	<form>
+		<label for="username">Username:</label>
+		<input type="text" id="username" name="username" required>
+
+		<label for="password">Password:</label>
+		<input type="password" id="password" name="password" required>
+
+		<input type="submit" value="Submit">
+	</form>
+    <script>
+        const form = document.querySelector('form');
+
+form.addEventListener('submit', (event) => {
+	event.preventDefault();
+
+	const username = document.getElementById('username').value;
+	const password = document.getElementById('password').value;
+
+	axios.get('https://sheetdb.io/api/v1/4qqy9zlkz9m9k/search?username=' + username + '&password=' + password)
+		.then((response) => {
+			if (response.data.length === 1) {
+				alert('Login successful!');
+                window.location.href = "demo.html";
+			} else {
+				alert('Incorrect username or password!');
+                
+			}
+		})
+		.catch((error) => {
+			console.log(error);
+			alert('An error occurred!');
+		});
+});
+
+        </script>
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+	<!-- <script src="login.js"></script> -->
+</body>
+</html>
